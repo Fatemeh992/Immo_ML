@@ -1,0 +1,122 @@
+Evaluation Report: Property Price Prediction in Belgium
+1. Overview
+This report presents the performance and methodology of an XGBoost regression model designed to predict property prices in Belgium as a project at Becode in 2024.
+ The dataset was derived from the Immoweb website through web scraping, followed by thorough preprocessing and feature engineering.
+
+2. Model Evaluation Metrics
+Model Details
+The final model is an XGBoostRegressor with the following configuration:
+from xgboost import XGBRegressor
+
+model = XGBRegressor(
+    objective="reg:squarederror",
+    max_depth=7,
+    learning_rate=0.1,
+    n_estimators=400,
+    subsample=0.8,
+    random_state=42
+)
+	•	Type: XGBoost Regressor
+	•	Key Hyperparameters:
+	◦	objective: reg:squarederror
+	◦	max_depth: 7
+	◦	learning_rate: 0.1
+	◦	n_estimators: 400
+	◦	subsample: 0.8
+	◦	random_state: 42
+Performance Metrics
+Training Set
+	•	MAE: 0.0826
+	•	RMSE: 0.1162
+	•	R2: 91.7015
+	•	MAPE: 0.6530
+	•	sMAPE: 65.2797
+Test Set
+	•	MAE: 0.1272
+	•	RMSE: 0.1811
+	•	R2: 79.9272
+	•	MAPE: 1.0040
+	•	sMAPE: 100.3561
+Insights:
+The XGBoost model demonstrates good predictive accuracy, with an R² of 80% on the test set. 
+Error metrics such as MAE and RMSE indicate reliable predictions, with deviations consistently within acceptable ranges.
+
+3. Features Used and Selection Process
+Final Features:
+	1	Living Area
+	2	Terrace Area
+	3	Number of Facades
+	4	Swimming Pool
+	5	Fully Equipped Kitchen (Encoded)
+	6	Furnished (Encoded)
+	7	Subtype of Property (Encoded)
+	8	State of the Building (Encoded)
+	9	Compound Listing (Encoded)
+	10	Locality
+	11	Fireplace(Encoded)
+	12	Price (Target)
+
+Feature Engineering Process:
+	•	Data Source:
+	◦	Derived from the scraped Immoweb dataset.
+	•	Feature Elimination:
+	◦	Non-informative columns (e.g., id, Type of Sale) were removed to prevent data leakage.
+	•	Categorical Encoding:
+	◦	Rare categories in Subtype of Property were grouped under "other property."
+	◦	Categorical variables were one-hot encoded.
+	•	Outlier Handling:
+	◦	Handled outliers in Price and Living Area using the IQR method.
+	•	Missing Value Imputation:
+	◦	Categorical: Most frequent category.
+	◦	Numerical: Median value.
+
+4. Accuracy Computing Procedure
+Data Splitting:
+	•	Train-Test Split: 80% Training / 20% Testing
+Cross-Validation:
+	•	Method: 5-Fold Cross-Validation
+	•	Purpose: To assess model performance and fine-tune hyperparameters.
+	•	Validation Metrics: RMSE on each fold, with an average RMSE used for optimization.
+	•	Cross-Validation Accuracy: 77.43% (1.42%)
+
+5. Efficiency
+Training Time:
+	•	Hyperparameter tuning time: 33.56 seconds
+	•	Cross-validation time: 5.32 seconds
+	•	Model training time: 0.53 seconds
+	•	Model evaluation time: 0.02 seconds
+
+6. Dataset Overview
+Source:
+	•	Scraped data from  immoweb, Belgium's primary real estate listing platform.
+Final Dataset Size:
+	•	after preprocessing.
+Preprocessing Steps:
+	•	Number of duplicate rows: 1551
+	•	Outliers removed from Price: 1096 rows dropped.
+	•	Outliers removed from Living Area: 859 rows dropped.
+	•	Outliers handled for columns: ['Price', 'Living Area']
+	•	Missing Values:
+	•	Dropping columns: ['id', 'Type of property', 'Type of sale', 'Garden', 'Garden area', 'Surface of the land', 'Surface area of the plot of land', 'Terrace', 'Number of rooms']
+	◦	Categorical: Imputed using the most frequent category.
+	◦	Numerical: Imputed using the median value.
+	•	Encoding:
+	◦	One-hot encoding applied to categorical variables.
+	•	Scaling:
+	◦	Log transformations applied to numerical variables for normality.
+
+Remarks:
+The dataset is clean, high-quality, and free of data leakage, ensuring reliable model performance.
+
+7. Summary
+Objective:
+To predict property prices in Belgium using data scraped from Immoweb.
+Key Outcomes:
+	•	Accuracy:
+	◦	Good R² (0.80 on test set).
+	◦	Reliable error metrics (e.g., RMSE: 0.1811 on test set).
+	•	Efficiency:
+	◦	Fast training and inference times.
+	•	Robustness:
+	◦	Cross-validation ensured consistent performance across folds.
+
