@@ -10,7 +10,7 @@ from xgboost import XGBRegressor
 
 model = XGBRegressor(
     objective="reg:squarederror",
-    max_depth=7,
+    max_depth=6,
     learning_rate=0.1,
     n_estimators=400,
     subsample=0.8,
@@ -19,24 +19,24 @@ model = XGBRegressor(
 	•	Type: XGBoost Regressor
 	•	Key Hyperparameters:
 	◦	objective: reg:squarederror
-	◦	max_depth: 7
+	◦	max_depth: 6
 	◦	learning_rate: 0.1
 	◦	n_estimators: 400
 	◦	subsample: 0.8
 	◦	random_state: 42
 Performance Metrics
 Training Set
-	•	MAE: 0.0826
-	•	RMSE: 0.1162
-	•	R2: 91.7015
-	•	MAPE: 0.6530
-	•	sMAPE: 65.2797
+	•	MAE: 27701.0998
+	•	RMSE: 39694.5356
+	•	R2: 91.9551
+	•	MAPE: 8.8409
+	•	sMAPE: 850.9507
 Test Set
-	•	MAE: 0.1272
-	•	RMSE: 0.1811
-	•	R2: 79.9272
-	•	MAPE: 1.0040
-	•	sMAPE: 100.3561
+	•	MAE: 45067.5573
+	•	RMSE: 65531.3104
+	•	R2: 79.1306
+	•	MAPE: 13.6092
+	•	sMAPE: 1291.7646
 Insights:
 The XGBoost model demonstrates good predictive accuracy, with an R² of 80% on the test set. 
 Error metrics such as MAE and RMSE indicate reliable predictions, with deviations consistently within acceptable ranges.
@@ -113,8 +113,8 @@ Objective:
 To predict property prices in Belgium using data scraped from Immoweb.
 Key Outcomes:
 	•	Accuracy:
-	◦	Good R² (0.80 on test set).
-	◦	Reliable error metrics (e.g., RMSE: 0.1811 on test set).
+	◦	Good R² (79% on test set).
+	◦	Reliable error metrics (e.g., RMSE: 65531.3104 on test set).
 	•	Efficiency:
 	◦	Fast training and inference times.
 	•	Robustness:

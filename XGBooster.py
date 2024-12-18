@@ -60,8 +60,6 @@ class XGBRegressionPipeline:
         numeric_feats = [col for col in self.X_train.columns if col not in self.categorical_features]
         self.X_train[numeric_feats] = np.log1p(self.X_train[numeric_feats])
         self.X_test[numeric_feats] = np.log1p(self.X_test[numeric_feats])
-        self.y_train = np.log1p(self.y_train)
-        self.y_test = np.log1p(self.y_test)
 
         self.scaler = MinMaxScaler()
         self.X_train_scaled = pd.DataFrame(
@@ -217,7 +215,7 @@ if __name__ == "__main__":
                             'd_TO_RESTORE', 'd_UNKNOWN', 'd_single']
     
     pipeline = XGBRegressionPipeline(
-        data_path='processed_data_20241209_134057.csv',
+        data_path='Data/processed_data_20241209_134057.csv',
         target_column='Price',
         categorical_features=categorical_features
     )
